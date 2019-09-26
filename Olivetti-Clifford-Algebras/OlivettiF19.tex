@@ -1,0 +1,655 @@
+\documentclass[psamsfonts, 12pt]{amsart}
+%
+%-------Packages---------
+%
+\usepackage[h margin=1 in, v margin=1 in]{geometry}
+\usepackage{amssymb,amsfonts}
+\usepackage[all,arc]{xy}
+\usepackage{tikz-cd}
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{mathpazo}
+\usepackage{float}
+\usepackage{slashbox}
+%\usepackage{charter} %another font
+%\usepackage{eulervm} %Vakil font
+\usepackage{yfonts}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{mathrsfs}
+\usepackage{fourier-orns}
+\usepackage[all]{xy}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{pdfsync}
+\usepackage{mathdots}
+\usepackage{calligra}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+
+\newcommand{\incfig}[2]{%
+    \fontsize{48pt}{50pt}\selectfont
+    \def\svgwidth{\columnwidth}
+    \scalebox{#2}{\input{#1.pdf_tex}}
+}
+%
+\usepackage{tgpagella}
+\usepackage[T1]{fontenc}
+%
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Matlab,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+  }
+%
+%--------Theorem Environments--------
+%
+\newtheorem{thm}{Theorem}[section]
+\newtheorem*{thm*}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem*{lem*}{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem*{quest*}{Question}
+%
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem{defns}[thm]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exmps}[thm]{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+%
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{aside*}{Aside}
+\newtheorem*{rem*}{Remark}
+\newtheorem*{hint*}{Hint}
+\newtheorem*{note}{Note}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+%
+%--------Macros--------
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\renewcommand{\sl}{\mathfrak{sl}}
+\newcommand{\Bord}{\mathsf{Bord}}
+\renewcommand{\hom}{\mathsf{Hom}}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\O}{\mathscr{O}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\ib}[1]{\textbf{\textit{#1}}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\H}{\mathbb{H}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\dbar}{\overline{\partial}}
+\newcommand{\zbar}{\overline{z}}
+\renewcommand{\S}{\mathbb{S}}
+\newcommand{\V}{\vec{v}}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\PGL}{\mathrm{PGL}}
+\newcommand{\SL}{\mathrm{SL}}
+\newcommand{\PSL}{\mathrm{PSL}}
+\newcommand{\SP}{\mathrm{SP}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\SU}{\mathrm{SU}}
+\newcommand{\Cliff}{\mathrm{Cliff}}
+\newcommand{\Pin}{\mathrm{Pin}}
+\newcommand{\Spin}{\mathrm{Spin}}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\g}{\mathfrak{g}}
+\newcommand{\Bun}{\mathsf{Bun}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\bra}[2]{ \left[ #1, #2 \right] }
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\transv}{\mathrel{\text{\tpitchfork}}}
+\newcommand{\defeq}{\vcentcolon=}
+\newcommand{\enumbreak}{\ \\ \vspace{-\baselineskip}}
+\let\oldexists\exists
+\renewcommand\exists{\oldexists~}
+\let\oldL\L
+\renewcommand\L{\mathfrak{L}}
+\makeatletter
+\newcommand{\tpitchfork}{%
+  \vbox{
+    \baselineskip\z@skip
+    \lineskip-.52ex
+    \lineskiplimit\maxdimen
+    \m@th
+    \ialign{##\crcr\hidewidth\smash{$-$}\hidewidth\crcr$\pitchfork$\crcr}
+  }%
+}
+\makeatother
+\newcommand{\bd}{\partial}
+\newcommand{\lang}{\begin{picture}(5,7)
+\put(1.1,2.5){\rotatebox{45}{\line(1,0){6.0}}}
+\put(1.1,2.5){\rotatebox{315}{\line(1,0){6.0}}}
+\end{picture}}
+\newcommand{\rang}{\begin{picture}(5,7)
+\put(.1,2.5){\rotatebox{135}{\line(1,0){6.0}}}
+\put(.1,2.5){\rotatebox{225}{\line(1,0){6.0}}}
+\end{picture}}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\inter}{Int}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\indx}{ind}
+\DeclareMathOperator{\alt}{Alt}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\ad}{ad}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Ad}{Ad}
+\DeclareMathOperator{\Lie}{Lie}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\dv}{div}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\sheafhom}{\mathscr{H}\text{\kern -3pt {\calligra\large om}}\,}
+\newcommand*\myhrulefill{%
+   \leavevmode\leaders\hrule depth-2pt height 2.4pt\hfill\kern0pt}
+\newcommand\niceending[1]{%
+  \begin{center}%
+    \LARGE \myhrulefill \hspace{0.2cm} #1 \hspace{0.2cm} \myhrulefill%
+  \end{center}}
+\newcommand*\sectionend{\niceending{\decofourleft\decofourright}}
+\newcommand*\subsectionend{\niceending{\decosix}}
+\def\upint{\mathchoice%
+    {\mkern13mu\overline{\vphantom{\intop}\mkern7mu}\mkern-20mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+    {\mkern7mu\overline{\vphantom{\intop}\mkern7mu}\mkern-14mu}%
+  \int}
+\def\lowint{\mkern3mu\underline{\vphantom{\intop}\mkern7mu}\mkern-10mu\int}
+%
+%--------Hypersetup--------
+%
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blacksquare
+}
+%
+%--------Solution--------
+%
+\newenvironment{solution}
+  {\begin{proof}[Solution]}
+  {\end{proof}}
+%
+%--------Graphics--------
+%
+%\graphicspath{ {images/} }
+
+\begin{document}
+%
+\author{Jeffrey Jiang}
+%
+\title{Clifford Algebras and Spin Groups}
+%
+\maketitle
+%
+One motivating reason for studying Clifford algebras and Spin groups is to better
+understand the orthogonal groups $\mathrm{O}_n$ and special orthogonal groups $\SO_n$,
+which consist of the transformations that preserve the standard inner product
+(and orientation in the case of $\SO_n$) on $\R^n$. These groups are of physical
+importance, since they are exactly the linear maps preserving our usual notions of
+length and angle, which are derived from the standard inner product. \\
+
+If you care about the representations of these groups, you might have noticed some
+problems -- there exist representations of the Lie algebra $\mathfrak{so}_n$ that fail
+the exponentiate to representations of $\SO_n$ (though they do exponentiate to
+projective representations). The source of the problem lies in the topology of the
+$\SO_n$ and $\mathrm{O}_n$.
+%
+\begin{thm}
+For $n > 2$, we have
+\[
+\pi_1(SO_n) \cong \Z/2\Z
+\]
+\end{thm}
+%
+In the case $n=3$, this can be visualized using the plate/belt loop trick.
+The failure of the orthogonal groups to be simply connected tells us that
+there is information that we cannot recover from the Lie algebra. This motivates the
+question :
+%
+\begin{quest*}
+What is the universal cover of $\SO_n$? What is the representation theory of this
+group?
+\end{quest*}
+%
+You might already know the answer to this question in some simple cases.
+%
+\begin{exmp}
+Consider the case of $SO_3$. If you are familiar with computer graphics, you might
+know that we can represent rotations in $\R^3$ (i.e. elements of $SO_3$) by quaternions.
+Let $\H$ denote the algebra of quaternions, which are elements of the form
+\[
+q = a + bi + cj + dk
+\]
+with $a,b,c,d \in \R$ and $i,j,k$ formal symbols satisfying the relations
+\[
+i^2 = j^2 = k^2 = ijk = -1
+\]
+embedding $\R^3$ into $\H$ via the mapping $(x,y,z) \mapsto xi + yj + zk$, we define
+an action of the unit quaternions $\mathrm{Sp}(1) = S^3 \subset \H^\times$ on $\R^3$
+(here $\mathrm{Sp}(1)$ denotes the compact symplectic group) by
+\[
+q\cdot v = qv\overline{q}
+\]
+where $\overline{q}$ is the quaternionic conjugate, i.e.
+\[
+\overline{a + bi + cj + dk} = a - bi - cj - dk
+\]
+Any orthogonal transformation $A \in SO_n$ can be represented by the action of some
+$q \in S^3$. In addition $q$ and $-q$ define the same orthogonal transformation, which
+tells us that $S^3$ is the universal cover of $SO_3$, and the covering map is
+the quotient by antipodal points, which tells us that $SO_3 \cong \RP^3$.
+\end{exmp}
+%
+The central ingredient to answering both of these questions stems from the classical
+theorem
+%
+\begin{thm}[\ib{Cartan-Dieudonn\'e}]
+Any orthogonal transformation $A \in \mathrm{O}_n$ can be expressed as the compositions
+of at most $n$ reflections about hyperplanes.
+\end{thm}
+%
+By a hyperplane, we mean a $n-1$ dimensional subspace $H \subset \R^n$, which can be
+identified with a choice of a unit normal vector $v \in H^\perp$. Reflection about $H$
+is then given by the
+map $R_H : \R^n \to \R^n$ defined by
+\[
+R_H(w) = w - 2\langle w,v\rangle v
+\]
+The Cartan-Dieudonn\'e theorem is the key piece in understanding the Clifford algebra.
+%
+\begin{defn}
+The Clifford algebra $\Cliff_n$ is the freest unital associative $\R$-algebra generated
+by elements of $\R^n$ subject to  the relations
+\begin{enumerate}
+  \item $v^2 = -1$ for any unit vector $v \in \R^n \subset \Cliff_n$
+  \item $vw = -wv$ for $v,w \in \R^n \subset \Cliff_n$ where $\langle v,w \rangle = 0$.
+\end{enumerate}
+\end{defn}
+%
+By ``generated by $\R^n$, we mean that every element in $\Cliff_n$ can be written as a
+formal sum of formal products of vectors in $\R^n$. In particular, if we fix a basis for
+$\R^n$, all elements in $\Cliff_n$ can be written as sums of formal products of these
+basis elements. Let $\set{e_i}$ denote the standard orthonormal basis for $\R^n$ with
+the standard inner product. Then the relations we specified tells us that the set
+\[
+\set{e_{i_1}\cdots e_{i_k} ~:~ 0 \leq k \leq n, 1 \leq i_1 < i_2 < \ldots < i_k \leq n}
+\]
+forms a basis for $\Cliff_n$, much like how they form a basis for the exterior algebra of
+$\R^n$. Note that this implies that $\dim \Cliff_n = 2^n$. \\
+
+Another equivalent definition of the Clifford algebra $\Cliff_n$ is via a universal
+property.
+%
+\begin{defn}
+The Clifford algebra $\Cliff_n$ is a unital associative equipped with a linear map
+$i : \R^n \to \Cliff_n$ such that for any linear map $\varphi : V \to A$ into another
+unital associative $\R$-algebra $A$ satisfying $(\varphi(v))^2 = -\langle v,v \rangle$,
+there exists a unique map  $\widetilde{\varphi} : \Cliff_n \to A$ such that the diagram
+\[\begin{tikzcd}
+V \ar[d, "i"'] \ar[dr, "\varphi"]\\
+\Cliff_n \ar[r, "\widetilde{\varphi}"'] & A
+\end{tikzcd}\]
+commutes.
+\end{defn}
+%
+\begin{rem*}
+Some choose the convention that unit vectors square to $1$ in the Clifford algebra, which
+is one of the several places where people will have differing sign conventions.
+\end{rem*}
+%
+What is the motivation for this construction? Inside $\Cliff_n$, we want vector
+$v \in \R^n$ to represent a hyperplane reflection about $v^\perp$. The fact that
+hyperplane reflections defined by orthogonal vectors commute explains the second
+relation. Before going further, we prove a helpful formula.
+%
+\begin{lem}
+Let $v,w \in \R^n \subset \Cliff_n$. Then $vw+wv = -2\langle v,w\rangle$
+\end{lem}
+%
+\begin{proof}
+Let $v = \sum_i v^ie_i$ and $w = \sum_j w^je_j$. We compute
+\begin{align*}
+vw+wv &= \sum_{i,j} (v^iw^je_ie_j + v^iw^je_je_i) \\
+&= \sum_{i,j} v^iw^j(e_ie_j + e_je_i)
+\end{align*}
+We note that since $\langle e_i, e_j \rangle = 0$, we have that $e_ie_j = -e_je_i$. This,
+along with the fact that $e_i^2 = -1$ gives us that this sum becomes
+\[
+\sum_i v^iw^i(e_i^2+e_i^2) = -2\sum_i v^iw^i = -2\langle v,w \rangle
+\]
+\end{proof}
+%
+Let $\alpha : \Cliff_n \to \Cliff_n$ be the automorphism extending the map
+$v \mapsto -v$ on $\R^n \subset \Cliff_n$ (i.e. for $v_1,\ldots v_k \in \R^n$,
+$\alpha(v_1\cdot v_k) = (-1)^kv_1\cdots v_k$.) and let $G \subset \Cliff_n^\times$
+denote the subgroup of the group of units generated by taking products of unit vectors
+in $\R^n$. We then define a group action of $G$ on $\R^n \subset \Cliff_n$ by the formula
+\[
+g \cdot v = \alpha(g)vg\inv
+\]
+(Note the similarity of this action to the one of the quaternions on $R^3$.)
+We first need to verify that this defines a group action, i.e. that it maps $\R^n$ back
+to itself. To show this, it suffices to check on the generating set of unit vectors. Let
+$v \in \R^n$ be a unit vector. We note that $v\inv = -v$, and $\alpha(v) = -v$. We then
+compute for $w \in \R^n$
+\begin{align*}
+v \cdot w &= \alpha(v)wv\inv \\
+&= vwv \\
+&= (-2\langle v,w\rangle -wv)v \\
+&= -2\langle v,w\rangle v + w
+\end{align*}
+%
+Note that this just the definition of hyperplane reflection about $v^\perp$! Therefore,
+not only do we have a group action, but we also have that $G$ acts on $\R^n$ by
+orthogonal transformations, giving us a map $G \to O_n$. This map is surjective by the
+Cartan-Dieudonn\'e theorem, and some additional work shows that the kernel of this map
+is $\set{\pm 1}$, giving us a $2-1$ map. This tells us that $G$ is the double cover of
+$\mathrm{O}_n$ that we are looking for. The group $G$ called the \ib{Pin group}
+$\Pin_n$. Other thing to note is that a single hyperplane reflection is orientation
+reversing, so the composition of an even number of reflections is orientation
+preserving. Restricting to even products of unit vectors gives us the \ib{Spin group}
+$\Spin_n$, which is the simply connected double cover of $\SO_n$. \\
+%
+
+To investigate these groups further, we study the structure of the Clifford algebras
+they came from. The first goal is to identify the Clifford algebras in terms of
+algebras we understand well (e.g. matrix algebras). It's not too hard to
+identify the first few
+%
+\begin{exmp} \enumbreak
+\begin{enumerate}
+  \item $\Cliff_0 \cong \R$
+  \item $\Cliff_1 \cong \C$ via the map $e_1 \mapsto i$.
+  \item $\Cliff_2 \cong \H$ via the map $e_1 \mapsto i$, $e_2 \mapsto j$.
+\end{enumerate}
+\end{exmp}
+%
+The name of the game here is to find algebras with an anti-commuting basis of elements
+that square to $-1$. For the low dimensional cases, this is easy, but things will
+quickly become difficult, since $\dim \Cliff_n = 2^n$. To find some more
+(in fact, to find them all), we develop a little more technology.
+%
+\begin{defn}
+Let $A$ be an associative $\R$-algebra. A $\Z/2\Z$-grading on $A$ is a direct sum
+decomposition
+\[
+A = A^0 \oplus A^1
+\]
+such that multiplication respects the grading, i.e. for $a \in A^i$ and $b \in A^j$,
+$ab \in A^{i+j \mod 2}$. The subspaces $A^0$ and $A^1$ are called \ib{even} and
+\ib{odd} respectively. Note in particular that $A^0$ forms a subalgebra of $A$, since
+the product of even elements is even. The elements of $A^0$ and $A^1$ are called
+\ib{homogeneous elements}. For a homogeneous element $a$, we let $|a| \in \set{0,1}$
+denote the index of subspace it lies in.
+\end{defn}
+%
+\begin{exmp}\enumbreak
+\begin{enumerate}
+  \item For a vector space $V$, $\Lambda^\bullet V$ has a $\Z/2\Z$-grading
+  \[
+  \Lambda^\bullet V = \Lambda^{\text{even}}V \oplus \Lambda^{\text{odd}}V
+  \]
+  \item The Clifford algebra has a $\Z/2\Z$-grading in much the same way, where
+  $\Cliff^0_n$ is the algebra of even products of basis vectors, and $\Cliff^1_n$ is the
+  subspace of odd products of basis vectors.
+\end{enumerate}
+\end{exmp}
+%
+Something that will come in handy later :
+%
+\begin{thm}
+For $n \geq 1$, the even subalgebra $\Cliff^0_n \subset \Cliff_n$ is isomorphic to
+$\Cliff_{n-1}$ as ungraded algebras.
+\end{thm}
+%
+\begin{proof}
+We note that for the standard basis $\set{e_i}$ for $\R^n$, we have that
+\[
+(e_ie_j)^2 = e_ie_je_ie_j = -e_i^2e_j^2 = -1
+\]
+and that a generating set for $\Cliff^0_n$ is
+\[
+\set{e_1e_i ~:~ 2 \leq i \leq n}
+\]
+The mapping $e_1e_i \mapsto e_{i-2}$ defines the desired isomorphism.
+\end{proof}
+%
+Another helpful operation is taking tensor products. Since things are graded, we
+need a small modification of the definition.
+%
+\begin{defn}
+Let $A$ and $B$ be $\Z/2\Z$-graded algebras. Define the \ib{graded tensor product} of
+$A$ and $B$, denoted $A \otimes B$ to be the algebra with the underlying vector space
+$A \otimes B$ with the multiplication defined on homogeneous elements by
+\[
+(a_1\otimes b_1)(a_2\otimes b_2) = (-1)^{|b_1||a_2|}a_1a_2\otimes b_1b_2
+\]
+This algebra is once again graded, where
+\begin{align*}
+(A \otimes B)^0 = (A^0 \otimes B^0) \oplus (A^1 \otimes B^1) \\
+(A \otimes B)^1 = (A^0 \otimes B^1) \oplus (A^1 \otimes B^0)
+\end{align*}
+\end{defn}
+%
+\begin{rem*}
+A heuristic reason for this definition is that when we are multiplying, we are formally
+``commuting $b_1$ with $a_2$, so we should pick up an extra sign depending on their
+parities.
+\end{rem*}
+%
+The graded tensor product allows us to express higher dimensional Clifford algebras
+in terms of their smaller brethren.
+%
+\begin{thm}
+\[
+\Cliff_p \otimes \Cliff_q = \Cliff_{p+q}
+\]
+where $\otimes$ denotes the graded tensor product.
+\end{thm}
+%
+\begin{proof}
+We specify an isomorphism $\varphi : \Cliff_{p+q} \to \Cliff_p \otimes \Cliff_q$
+on an orthonormal basis and verifying that it satisfies the Clifford relation. Let
+$\set{e_i}$ and $\set{f_i}$ be the standard orthonormal bases for $\R^p$ and $\R^q$
+respectively, and let $\set{b_i}$ denote the standard orthonormal basis for $\R^{p+q}$
+\[
+\varphi(b_i) = \begin{cases}
+e_i \otimes 1 & 1 \leq i \leq p \\
+1 \otimes f_i & p+1 \leq i \leq p+q
+\end{cases}
+\]
+to show the Clifford relations are satisfied, we just need to verify that for every $i$,
+we have $(\varphi(b_i))^2 = -1$, and for distinct $i,j$, we have that
+$\varphi(b_i)$ and $\varphi(b_j)$ anticommute. The first condition is obvious. For
+the second, there are two cases. If $1 \leq i,j \leq p$, they anticommute because the
+$e_i$ anticommute. The same holds for $p \leq i,j \leq p+q$. In the case that
+$1 \leq i \leq p$ and $p+1 \leq j \leq p+q$, we compute
+\begin{align*}
+\varphi(b_i)\varphi(b_j) + \varphi(b_j)\varphi(b_i) &= (e_i \otimes 1)(1 \otimes f_j)
++ (1 \otimes f_j)(e_i \otimes 1) \\
+&= e_i \otimes f_j - e_i \otimes f_j = 0
+\end{align*}
+where we use the fact that $1$ is an even element and the fact that $f_j$ and $e_i$
+are odd.
+\end{proof}
+%
+This fact, along with some computations by hand gives us that the first
+$9$ Clifford algebras (starting at $\Cliff_0$) are isomorphic as ungraded algebras
+to the following list.
+\begin{align*}
+\R \qquad \C \qquad \H \qquad \H \times \H \qquad M_2\H \qquad M_4\C \qquad M_8\R
+\qquad M_8\R \times M_8\R \qquad M_{16}\R
+\end{align*}
+%
+Beyond this, something curious happens : the graded tensor product with $M_{16}\R$
+is the same as the ungraded tensor product on the level of ungraded algebras, so
+these $9$ are the only ones we need to classify them all. In particular, we know
+that all Clifford algebras are very nice -- they are matrix algebras over
+$\R$, $\C$, or $\H$. In particular, this implies that they are semisimple algebras,
+which tells us that they have nice modules. In particular, this implies that all Clifford modules
+are direct sums of irreducible ones, and from these irreducible modules, we can recover
+the lost representations of $\SO_n$.
+%
+\begin{defn}
+The \ib{Spin representations} are the representations of $\Spin_n$ obtained by
+restricting the action of $\Cliff_n$ on an irredicible module.
+\end{defn}
+%
+The classification of these representations is surprisingly simple, which stems
+from two observations.
+%
+\begin{thm}
+The even subalgebra $\Cliff^0_n$ is isomorphic as ungraded algebras with $\Cliff_{n-1}$.
+\end{thm}
+%
+\begin{thm}
+Let $k = \R$, $\C$, or $\H$.
+\begin{enumerate}
+  \item The algebra $M_nk$ admits a single irreducible left
+  module, which is $M_nk$ acting on $k^n$ in the standard way.
+  \item The algebra $M_nk \times M_nk$ admits two irreducible modules, corresponding
+  to the left or right factor acting in the standard way, and the other acting by $0$.
+\end{enumerate}
+\end{thm}
+%
+\begin{proof} \enumbreak
+\begin{enumerate}
+  \item We note that $M_nk$ acts transitively on $k^n$, so $k^n$ is an irreducible module. To
+  prove that it is unique, we note that $M_nk$ admits an increasing chain of left ideals
+  \[
+  0 = I_0 \subset I_1 \subset \ldots \subset I_n = M_nk
+  \]
+  where $I_k$ is the left ideal of matrices where all of the entries but the first $k$ columns
+  are $0$. These ideals have the property that the quotients $I_k/I_{k-1}$ are all isomorphic
+  to $k^n$ as $M_nk$ modules. Let $M$ be an arbitrary nontrivial irreducible module, and fix
+  $m \in M$. Since $M$ is trivial, the orbit of $m$ under the action of $M_nk$ must necessarily
+  be all of $M_nk$. We then get a surjective module homomorphism $\varphi : M_nk \to M$
+  where $A \mapsto A\cdot m$. Therefore, there exists some smallest $k$ such that $\varphi(I_k)$
+  is nonzero, and by construction, $\varphi\vert_{I_k}$ factros through $I_k/I_{k-1}$, which
+  is necessarily an isomorphism by Schur's Lemma.
+  \item The proof is much the same, where we use the increasing chain
+  \[
+  0 = J_0 \subset I_1 \times \set{0} \subset \ldots \subset M_nk \times \set{0} \subset M_nk
+  \times I_1 \subset \ldots \subset M_nk \times M_nk
+  \]
+  where $I_k$ is defined the same as in the first case. The proof is then the same argument,
+  using the observation that $J_k/J_{k-1}$ is isomorphic to $k^n$ with the standard action
+  of the left factor or the right factor.
+\end{enumerate}
+\end{proof}
+%
+Having classified ungraded Clifford modules, this tells us the Spin representations. For
+example, in the case of $\Spin_3 \cong SU_2 \cong Sp(1)$, we have that the Spin representation
+is just the action of the Spin group on the irreducible module of the even subalgebra
+$\Cliff_3^0$, which is isomorphic to $\Cliff_2 \cong \H$. So the Spin representation is just
+$Sp(1)$ acting on $\H$ in the standard way. \\
+
+We discuss one final thing about Clifford modules. For a ring $A$, let ${}_A\mathsf{Mod}$
+denote commutative monoid of left $A$-modules under direct sum. Given a ring homomorphism
+$\varphi : A \to B$, there is an induced map ${}_B \mathsf{Mod} \to {}_A \mathsf{Mod}$,
+where a $B$ module $M$ becomes an $A$-module with multiplication defined by
+$a \cdot m = \varphi(a) \cdot m$. Studying this induced map on modules proves extremely fruitful
+for Clifford modules. let $\mathcal{M}_n$ denote the commutative monoid of left $\Cliff_n$
+modules. The inclusion maps $\R^n \hookrightarrow \R^{n+1}$ induces an inclusion
+$\Cliff_n \hookrightarrow \Cliff_{n+1}$, which then gives maps
+$\mathcal{M}_{n+1} \to \mathcal{M}_n$. Since the maps $\Cliff_n \hookrightarrow \Cliff_{n+1}$
+are inclusion, the induce map on $\mathcal{M}_n$ is just the restriction of a module of
+$\Cliff_{n+1}$ to the action of $\Cliff_n \subset \Cliff_{n+1}$. We can then compute the
+cokernel of this map, which computes to obstruction to extending a $\Cliff_n$-module to a
+$\Cliff_{n+1}$ module. To compute these cokernels, we note that the inclusions
+$\Cliff_n \hookrightarrow \Cliff_{n+1}$ fall into one of the following cases
+\begin{enumerate}
+  \item $M_nk \hookrightarrow M_nk'$ where $k = \R$ or $\C$, and $k' = \C$ or $\H$ is the
+  division algebra of twice the dimension over $\R$.
+  \item $M_nk \times M_nk \hookrightarrow M_{2n}k$, given by the mapping
+  \[
+  (A,B) \mapsto \begin{pmatrix}
+  A & 0 \\
+  0 & B
+  \end{pmatrix}
+  \]
+  \item $M_nk' \hookrightarrow M_{2n}k$, where $k$ and $k'$ are defined as in (1)
+  \item $M_nk \hookrightarrow M_nk \times M_nk$
+\end{enumerate}
+%
+Using our classification of Clifford modules, as well as their semisimplicty, we compute the
+cokernels in all these cases
+%semisimple
+\begin{enumerate}
+  \item In this case, the irreuducible module for $M_nk'$ is $(k')^n$, which is twice the
+  dimension of $k^n$ over $\R$. Since both $M_nk$ and $M_nk'$ only admit a single
+  irreducible module, the induced monoid homomorphism is the map
+  $\Z^{\geq 0} \to \Z^{\geq 0}$ where $1 \mapsto 2$. The cokernel is the \emph{group}
+  $\Z/2\Z$.
+  \item The irreducible modules $k^{2n}$ decomposes into a direct sum of the two
+  irreducible modules for $M_nk \times M_nk$. The monoid homomorphism is then the map
+  $\Z^{\geq 0} \to \Z^{\geq 0}$ defined by $1 \mapsto (1,1)$. The cokernel is then the
+  group $\Z$. You might have seen this construction before as the
+  \ib{Grothendieck completion} of a commutative monoid.
+  \item The irreducible modules $(k')^n$ and $k^{2n}$ are the same dimension so the
+  monoid homomorphism is just $1\mapsto 1$. so the cokernel is trivial.
+  \item Again, both irreducible modules for $M_nk \times M_nk$ are the same dimension as
+  the one for $M_nk$, so the map is given by $(1,0) \mapsto 1$ and $(0,1)\mapsto 1$, so
+  the cokernel is again trivial.
+\end{enumerate}
+%
+Therefore, these cokernels give the following $8$-periodic sequence
+\[
+\Z/2\Z \qquad \Z/2\Z \qquad 0 \qquad \Z \qquad 0 \qquad 0 \qquad 0 \qquad \Z
+\]
+which is affectionately called the \ib{Bott song} (though perhaps shifted by 1), and is
+one of the many avatars of \ib{Bott periodicity}.
+%
+\end{document}
